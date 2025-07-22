@@ -262,6 +262,7 @@ public class ScheduledResultAndGameCreation {
 				res.setResultTime(time);
 				log.info("Result details size [{}]", result.size());
 				List<ResultDetails> resultDetails = new ArrayList<>(result.size());
+				Result savedResult = resultService.addResult(res);
 				result.stream().forEach(r -> {
 					ResultDetails resultD = new ResultDetails();
 					if(r.getTicketNumder() < 100) {
@@ -271,8 +272,8 @@ public class ScheduledResultAndGameCreation {
 					}
 				});
 				List<ResultDetails> dbResultDetails = resultDetailsService.addResultDetails(resultDetails);
-				res.setResultDetails(dbResultDetails);
-				resultService.addResult(res);
+				savedResult.setResultDetails(dbResultDetails);
+				//resultService.addResult(res);
 				setting.setWinningNumber("");
 				setting.setGameId(-1);
 				generalGameSettingsServiceImpl.save(setting);
