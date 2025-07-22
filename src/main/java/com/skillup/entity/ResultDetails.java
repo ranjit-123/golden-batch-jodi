@@ -28,7 +28,7 @@ public class ResultDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long resDetailsId;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name = "result_result_id", referencedColumnName = "result_id")
 	@JsonBackReference
 	private Result result;
