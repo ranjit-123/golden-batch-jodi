@@ -93,10 +93,10 @@ public class ScheduledResultAndGameCreation {
     @Scheduled(fixedRate = 1000)
 	public void scheduleFixedRateTaskAsync() throws InterruptedException {
 		LocalDate localDate = LocalDate.now();
-		LocalTime time = LocalTime.now().plusSeconds(20);
+		LocalTime time = LocalTime.now().plusSeconds(5);
 		String result = localDate + "-" + String.format("%02d", time.getHour()) + ":"
 				+ String.format("%02d", time.getMinute());
-		if (SchedularSharedClass.getSchedularSharedInstance().getTimeToAdd().contains(time.getMinute()+"")) {
+		if (SchedularSharedClass.getSchedularSharedInstance().getTimeToAddTenKaDum().contains(time.getMinute()+"")) {
 			log.info("Calculation result called [{}]", result);
 			calculateResult(localDate + "",
 					String.format("%02d", time.getHour()) + ":" + String.format("%02d", time.getMinute()), String.format("%02d", time.getHour()) + ":00", result);
@@ -264,9 +264,11 @@ public class ScheduledResultAndGameCreation {
 				List<ResultDetails> resultDetails = new ArrayList<>(result.size());
 				result.stream().forEach(r -> {
 					ResultDetails resultD = new ResultDetails();
+					if(r.getTicketNumder() < 100) {
 					resultD.setTicketNumbers(r.getTicketNumder());
 					resultD.setResult(res);
 					resultDetails.add(resultD);
+					}
 				});
 				List<ResultDetails> dbResultDetails = resultDetailsService.addResultDetails(resultDetails);
 				res.setResultDetails(dbResultDetails);
@@ -343,11 +345,11 @@ public class ScheduledResultAndGameCreation {
 	
     private void createGamesForDay() {
     	DateTimeFormatter simpleDateFormat = new DateTimeFormatterFactory("HH:mm").createDateTimeFormatter();
-		LocalTime time = LocalTime.of(10, 00, 00);
-		List<Game> games = new ArrayList<Game>(48);
-		for (int i = 1; i <= 49; i++) {
+		LocalTime time = LocalTime.of(8, 00, 00);
+		List<Game> games = new ArrayList<Game>(168);
+		for (int i = 1; i <= ((168 * 5) / 5); i++) {
 			games.add(new Game(i, time.format(simpleDateFormat), new Date()));
-			time = time.plusMinutes(15);
+			time = time.plusMinutes(5);
 		}
 		gameService.addAllgames(games);
     }

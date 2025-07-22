@@ -108,8 +108,8 @@
 					</execution>
 				</executions>
 				<configuration>
-					<repository>tarzan21/rajlaxmi-batch</repository>
-					<tag>1.0.0</tag>
+					<repository>tarzan21/golden-double-batch</repository>
+					<tag>1.0.1</tag>
 					<skipDockerInfo>true</skipDockerInfo>
 				</configuration>
 			</plugin>

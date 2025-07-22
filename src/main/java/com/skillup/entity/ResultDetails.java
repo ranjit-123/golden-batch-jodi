@@ -2,6 +2,7 @@ package com.skillup.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +28,7 @@ public class ResultDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long resDetailsId;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "result_result_id", referencedColumnName = "result_id")
 	@JsonBackReference
 	private Result result;
